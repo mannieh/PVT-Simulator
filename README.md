@@ -16,4 +16,4 @@ Future Work:
 Improve output formatting
 Include Pedersen Equation for calculating Viscosity
 
-Please see the accomponying Presntation before use and let me have any comments.
+Please see the accompanying Presntation before use and let me have any comments.
