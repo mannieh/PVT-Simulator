@@ -1,7 +1,13 @@
-#Raphael_PVT.py d/f PE251_Project_v12
+
+# coding: utf-8
+
+# In[45]:
+
+
+# Raphael_PVT.py d/f PE251_Project_v12
 # 16-09-2020
-# Version for GitHub
-#-------------------------------------------------------
+# Version for Git Hub
+#-------------------------------------
 #PE251_Project_v12 d/f PE25_Project_v11
 # 21-08-2020
 #1. To test the crashes with z8
@@ -36,40 +42,35 @@
 #User Input
 # Composition is in Mole Fractions: Please ensure they add up to 1.00
 #Sample Compostion
-z1={'CO2':0.2,'C1':0.40,'nC5':0.25, 'C16':0.15}
-z2={'N2':0.00291,'CO2':0.00481,'C1':0.17813,'C2':0.01454,'C3':0.02914,'iC4':0.01146,'nC4':0.0275,
-    'iC5':0.01769,'nC5':0.02425,'C6':0.03949,'C7':0.04976,'C8':0.05467,'C9':0.04387,'C10':0.50178}
-z3={'N2':0.009,'CO2':0.0014,'C1':0.3878,'C2':0.0203,'C3':0.0006,'iC4':0.0001,'nC4':0.0005,
-   'C6':0.0004,'C7':0.5799}
-z4={'N2':0.009,'CO2':0.0007,'C1':0.3693,'C2':0.0203,'C3':0.0006,'C7':0.60}
-z5={'C1':0.40,'C16':0.60}
-z6={'N2':0.0034,'CO2':0.0359,'C1':0.6742,'C2':0.0902,'C3':0.0431,'iC4':0.0093,
-    'nC4':0.0171,'iC5':0.0074,'nC5':0.0085,'C6':0.0138,'C7':0.015,'C8':0.0169,'C9':0.0114,'C10':0.008,
-    'C11':0.0458}
+
+z1={'N2':0.00291,'CO2':0.00481,'C1':0.17813,'C2':0.01454,'C3':0.02914,'iC4':0.01146,
+    'nC4':0.0275,'iC5':0.01769,'nC5':0.02425,'C6':0.03949,'C7':0.04976,'C8':0.05467,
+     'C9':0.04387,'C10':0.50178}
+
 #--Gas Condensate
-z7={'CO2': 0.0018,'N2':0.0013,'C1':0.6192, 'C2': 0.1408,'C3':0.0835,'iC4':0.0097,'nC4':0.0341,'iC5':0.0084,
-   'nC5':0.0148,'C6':0.0179,'C7':0.0685}
-z8={'CO2': 0.0569,'N2':0.0037,'C1':0.86,'C2':0.0348,'C3':0.0152,'iC4':0.0036,'nC4':0.0044,
-    'iC5':0.0016,'nC5':0.0012,'C6':0.0018,'C7':0.0021,'C8':0.0024,'C9':0.0024,'C10':0.0011,
-    'C11':0.0012,'C12':0.0014,'C13':0.0011,'C14':0.0013,'C15':0.0010,'C16':0.0028}
-z9={'CO2': 0.0569,'N2':0.0037,'C1':0.86,'C2':0.0348,'C3':0.0152,'iC4':0.0036,'nC4':0.0044,
-    'iC5':0.0016,'nC5':0.0012,'C6':0.0018,'C7':0.0021,'C8':0.0024,'C9':0.0024,'C10':0.0099}
-z10={'C1':0.2,'C2':0.1,'C6':0.2,'C10':0.5}
+#z1={'CO2': 0.0018,'N2':0.0013,'C1':0.6192, 'C2': 0.1408,'C3':0.0835,'iC4':0.0097,'nC4':0.0341,'iC5':0.0084,
+#   'nC5':0.0148,'C6':0.0179,'C7':0.0685}
+#z1={'CO2': 0.0569,'N2':0.0037,'C1':0.86,'C2':0.0348,'C3':0.0152,'iC4':0.0036,'nC4':0.0044,
+#    'iC5':0.0016,'nC5':0.0012,'C6':0.0018,'C7':0.0021,'C8':0.0024,'C9':0.0024,'C10':0.0011,
+#    'C11':0.0012,'C12':0.0014,'C13':0.0011,'C14':0.0013,'C15':0.0010,'C16':0.0028}
+#z1={'CO2': 0.0569,'N2':0.0037,'C1':0.86,'C2':0.0348,'C3':0.0152,'iC4':0.0036,'nC4':0.0044,
+#    'iC5':0.0016,'nC5':0.0012,'C6':0.0018,'C7':0.0021,'C8':0.0024,'C9':0.0024,'C10':0.0099}
+#z1={'C1':0.2,'C2':0.1,'C6':0.2,'C10':0.5}
 # Res Temperature (Degree F)
 T_res= 186
 # Pressures 
-P_list=[400,500,900,1250,1500,1750,2000,2250,2500,2750,3000]
+P_list=[100,200,300,400,500,900,1250,1500,1750,2000,2250,2500]
 #P_list=[400,3000]
 #--------------------------
 #Specify the Fluid Type (oil or gas)
 fluid_type='Oil'
 fluid=fluid_type.upper()
 # Separator Stages
-num_stages=2
+num_stages=1
 #SepStage 1
 # Psep1 (psia), Tsep (Degree F)
-Psep1=100
-Tsep1=60
+Psep1=110
+Tsep1=89
 #SepStage 2
 #Psep2 (psia), Tsep (Degree F)
 Psep2=14.7
@@ -78,10 +79,10 @@ Tsep2=60
 # The Initial guess value for Vapour Fraction
 # In case of convergence PROBLEMS ty modifying this value
 # guessV is between 0.0 and 1.0
-guessV=0.5
+guessV=0.9
 
 
-# In[2]:
+# In[24]:
 
 
 # By Mansoor Hussain
@@ -200,7 +201,7 @@ BIC={'N2' :{'N2':0.00, 'CO2':0.00, 'H2S':0.00, 'C1':0.025,
         
 
 
-# In[3]:
+# In[25]:
 
 
 #----This function is NOT used------
@@ -214,7 +215,7 @@ def criticals_fluid_func(z):
  return Tc_fluid, Pc_fluid
 
 
-# In[4]:
+# In[26]:
 
 
 def wilson(P,T_R,comp_list):
@@ -231,7 +232,7 @@ def wilson(P,T_R,comp_list):
  
 
 
-# In[5]:
+# In[27]:
 
 
 
@@ -254,7 +255,7 @@ def flash(comp_list,kval,V):
  return F_0,F_1, fv, dfv
 
 
-# In[6]:
+# In[28]:
 
 
 def V_calc(kval,comp_list,V):
@@ -333,7 +334,7 @@ def liq_vap_molfrac(kval,comp_list,V):
   
 
 
-# In[7]:
+# In[29]:
 
 
 # Following PVTi Manual
@@ -399,7 +400,7 @@ def a_calc2(P,T_R,comp_list):
    
 
 
-# In[8]:
+# In[30]:
 
 
 
@@ -433,7 +434,7 @@ def b_calc(P,T_R,comp_list):
  return B,Bj
 
 
-# In[9]:
+# In[31]:
 
 
 def eos_zeta(A,B):
@@ -510,7 +511,7 @@ def vap_zeta(P,T_R,ylist):
  return zeta
 
 
-# In[10]:
+# In[32]:
 
 
 #Eq 7.93 PVTi manual
@@ -553,7 +554,7 @@ def fugacity(P, T_R, zeta,comp_list):
  return fug
 
 
-# In[11]:
+# In[33]:
 
 
 def cubroot(p,q,r):
@@ -588,7 +589,7 @@ def cubroot(p,q,r):
   
 
 
-# In[12]:
+# In[34]:
 
 
 # To be called with P, T_F and mole fraction of the feed stream
@@ -739,6 +740,11 @@ def workflow(P,T_F,comp_list):
   #print ('fugcomp=',fugcomp)
  return (xlist,ylist,L,V,zeta_l,zeta_v, liq_v, vap_v)
  
+     
+
+
+# In[35]:
+
 
 
 #--function to calculate Bo and Rs 
@@ -1024,8 +1030,14 @@ def blackoil(comp_list,T_F,P):
  return (Bg,Bo,Bo_us,Rs,Rv, L1_list,zeta_l1_list,liq_vol1_list,liq_vol_tbd_list)
 
 
+# In[46]:
 
-Bg,Bo,Bo_us,Rs,Rv,L1_list,zeta_l1_list,liq_vol1_list,liq_vol_tbd_list=blackoil(z3,T_res,P_list)
+
+
+Bg,Bo,Bo_us,Rs,Rv,L1_list,zeta_l1_list,liq_vol1_list,liq_vol_tbd_list=blackoil(z1,T_res,P_list)
+
+
+# In[37]:
 
 
 def MW_func(z):
@@ -1206,9 +1218,7 @@ def lbc_visc(P, T_F,z):
   return (visc_liq,visc_vap,visc_liq_us)
 
 
-
-
-
+# In[47]:
 
 
 
@@ -1218,12 +1228,16 @@ visc_vap_list=[]
 visc_liq_us_list=[]
 for P in P_list:
   print ("Pressure=",P)
-  visc_liq,visc_vap,visc_liq_us=lbc_visc(P,T_res,z3)
+  visc_liq,visc_vap,visc_liq_us=lbc_visc(P,T_res,z1)
   visc_liq_list.append(visc_liq)
   visc_vap_list.append(visc_vap)
   visc_liq_us_list.append(visc_liq_us)
 
   
+ 
+
+
+# In[40]:
 
 
 #For undersaturated Lines
@@ -1233,7 +1247,7 @@ for i in range (0,len(Bo_us)):
 print (P_max)
 
 
-
+# In[41]:
 
 
 #PVTO Undersaturated Lines
@@ -1244,6 +1258,8 @@ columns=['Rs(Mscf/STB)','Pressure(psia)','Bo(BBL/STB)', 'visc_liq(cp)'])
 PVTO_s=pd.DataFrame(list(zip(Rs,P_list, Bo,visc_liq_list)), 
                columns =['Rs(Mscf/STB)', 'Pressure(psia)','Bo(BBL/STB)', 'visc_liq(cp)'])
 
+
+# In[42]:
 
 
 def PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list):
@@ -1257,7 +1273,6 @@ def PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list):
   PVTG['slash']=slash
   PVTG=PVTG.drop(columns=['L1_list'])
   PVTG.to_csv('PVTG.INC')
-  PVTG.to_excel('PVTG.xlsx')
   print (PVTG)
   return PVTG
 
@@ -1293,10 +1308,12 @@ def PVTO_cond_func(Rs,P_list,Bo,visc_liq_list,L1_list):
   print ('--(i) remove repetetive RS values from the first column, saturated values')
   print ('--(ii) Adjust the Slashes')
   print ('--These issues will be fixed in future versions')
-  PVTO.to_csv('PVTO.INC')
   PVTO.to_excel('PVTO.xlsx')
   print (PVTO)
   return PVTO_s,PVTO
+
+
+# In[43]:
 
 
 def PVDG_func(P_list,Bg,visc_vap_list,L1_list):
@@ -1312,7 +1329,6 @@ def PVDG_func(P_list,Bg,visc_vap_list,L1_list):
   PVDG['slash']=slash
   PVDG=PVDG.drop(columns=['L1_list'])
   PVDG.to_excel('PVDG.xlsx')
-  PVDG.to_csv('PVDG.INC')
   print (PVDG)
   return PVDG
 
@@ -1334,10 +1350,12 @@ def PVTO_Oil_func(Rs,P_list,Bo,visc_liq_list,L1_list):
   print ('--(i) remove RS values from the first column, saturated values')
   print ('--(ii) And add a slash at the end of the same row')
   print ('--These issues will be fixed in future versions')
-  PVTO.to_csv('PVTO.INC')
   PVTO.to_excel('PVTO.xlsx')
   print (PVTO)
   return PVTO
+
+
+# In[48]:
 
 
 def PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list):
@@ -1345,10 +1363,10 @@ def PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list):
   PVTO=PVTO_Oil_func(Rs,P_list,Bo,visc_liq_list,L1_list)
   PVDG=PVDG_func(P_list,Bg,visc_vap_list,L1_list)
  return(PVTO,PVDG)
-#PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list)
+PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list)
 
 
-
+# In[21]:
 
 
 def PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list):
@@ -1356,8 +1374,10 @@ def PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list):
   PVTO_s,PVTO=PVTO_cond_func(Rs,P_list,Bo,visc_liq_list,L1_list)
   PVTG=PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list)
  return(PVTO_s,PVTO,PVTG)
-#PVTO_s,PVTO,PVTG= PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list)
+PVTO_s,PVTO,PVTG= PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list)
 
+
+# In[35]:
 
 
 if fluid=='GAS':
@@ -1392,6 +1412,12 @@ if fluid=='GAS':
  plt.xlabel ('pressure (psia)')
  plt.show()
  
+ 
+
+
+# In[49]:
+
+
 if fluid=='OIL':
  PVTO,PVDG=PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs,Bo,visc_liq_list)
  plt.plot(PVTO['Pressure (psia)'],PVTO['Bo (BBL/STB)'])
@@ -1426,7 +1452,84 @@ if fluid=='OIL':
  plt.xlabel ('pressure (psia)')
  plt.show()
 
+
+# In[ ]:
+
+
+#------Complicated Separator----------
+z1= [0.2, 0.4, 0.25, 0.15]
+#z1=[0.19, 0.31, 0.38, 0.12]
+#initializing the values
+moles_V1=0.1
+
+moles_V2=0.0
+moles_V3=0.0
+moles_V4=0.0
+moles_L1=0.1
+moles_L2=0.0
+moles_L3=0.0
+moles_L4=0.0
+output_moles=0.0
+#y3 initialized as it only is available for Separator 2 in second iteration
+y3=[0,0,0,0]
+feed_sep2=[0,0,0,0]
  
+iter=1
+#while abs((1+moles_L4)/(moles_L1+moles_V1)-1.0)>0.01 and iter<=100:
+while abs (1-output_moles)>0.01 and iter<=20:
+ print ('iter=',iter)
+ print ('z1=',z1)
+#--Sep 1---
+ x1,y1,L1,V1,zeta_l1,liq_v1,zeta_v1,vap_v1=workflow(1750,160, z1)
+ moles_L1=(1+moles_L4)*L1
+ moles_V1=(1+moles_L4)*V1
+ print ('Sep 1')
+ print('x1=',x1,) 
+ print('y1=',y1)
+ print ('L1=',L1,'V1=',V1)
+ print('moles_L1=',moles_L1,'moles_V1=',moles_V1)
+#---feed composition for Sep 2 ---
+ for i in range (0,len(z1)):
+    feed_sep2[i]=(y1[i]*moles_V1+y3[i]*moles_V3)/(moles_V1+moles_V3)
+ print ('moles_V1=',moles_V1,'moles_V3=',moles_V3)
+ print ('feed_sep2=',feed_sep2)
+#--Sep 2-------
+ x2,y2,L2,V2,zeta_l2,liq_v2,zeta_v2,vap_v2=workflow(100,-150,feed_sep2)
+ moles_V2=(moles_V1+moles_V3)*V2
+ moles_L2=(moles_V1+moles_V3)*L2
+ print ('Sep 2')
+ print('x2=',x2)
+ print('y2=',y2)
+ print ('L2=',L2,'V2=',V2)
+ print('moles_L2=',moles_L2,'moles_V2=',moles_V2)
+#--Sep 3 ------
+ x3,y3,L3,V3,zeta_l3,liq_v3,zeta_v3,vap_v3=workflow(100,70,x1)
+ moles_V3=moles_L1*V3
+ moles_L3=moles_L1*L3
+ print ('Sep 3')
+ print('x3=',x3)
+ print ('y3=',y3)
+ print ('L3=',L3,'V3=',V3)
+ print('moles_L3=',moles_L3,'moles_V3=',moles_V3)
+#--Sep 4-------
+ x4,y4,L4,V4,zeta_l4,liq_v4,zeta_v4,vap_v4=workflow(100,60,x2)
+ moles_V4=moles_L2*V4
+ moles_L4=moles_L2*L4
+ print ('Sep 4')
+ print('x4=',x4) 
+ print('y4=',y4)
+ print ('L4=',L4,'V4=',V4)
+ print('moles_L4=',moles_L4,'moles_V4=',moles_V4)
+    
+ output_moles=moles_V2+moles_V4+moles_L3
+ print ('output_moles=',output_moles)
+#---feed composition for Sep 1 ---
+ for i in range (0,len(z1)):
+    z1[i]=(z1[i]+moles_L4*x4[i])/(1+moles_L4)
+ print ('z1=',z1)
+ iter=iter+1
+
+    
 
   
 
