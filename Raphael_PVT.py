@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[45]:
+# In[ ]:
 
 
 # Raphael_PVT.py d/f PE251_Project_v12
@@ -43,9 +43,11 @@
 # Composition is in Mole Fractions: Please ensure they add up to 1.00
 #Sample Compostion
 
-z1={'N2':0.00291,'CO2':0.00481,'C1':0.17813,'C2':0.01454,'C3':0.02914,'iC4':0.01146,
-    'nC4':0.0275,'iC5':0.01769,'nC5':0.02425,'C6':0.03949,'C7':0.04976,'C8':0.05467,
-     'C9':0.04387,'C10':0.50178}
+#z1={'N2':0.00291,'CO2':0.00481,'C1':0.17813,'C2':0.01454,'C3':0.02914,'iC4':0.01146,
+#   'nC4':0.0275,'iC5':0.01769,'nC5':0.02425,'C6':0.03949,'C7':0.04976,'C8':0.05467,   'C9':0.04387,'C10':0.50178}
+# Volve Data Set: Mathematically Recombined Samples
+z1={'N2':0.0047,'CO2':0.0162,'C1':0.4012,'C2':0.0587,'C3':0.0547,'iC4':0.0078,'nC4':0.0285,
+  'iC5':0.0107,'nC5':0.0167,'C6':0.0227,'C7':0.0344,'C8':0.0313,'C9':0.023,'C10':0.2894}
 
 #--Gas Condensate
 #z1={'CO2': 0.0018,'N2':0.0013,'C1':0.6192, 'C2': 0.1408,'C3':0.0835,'iC4':0.0097,'nC4':0.0341,'iC5':0.0084,
@@ -57,9 +59,9 @@ z1={'N2':0.00291,'CO2':0.00481,'C1':0.17813,'C2':0.01454,'C3':0.02914,'iC4':0.01
 #    'iC5':0.0016,'nC5':0.0012,'C6':0.0018,'C7':0.0021,'C8':0.0024,'C9':0.0024,'C10':0.0099}
 #z1={'C1':0.2,'C2':0.1,'C6':0.2,'C10':0.5}
 # Res Temperature (Degree F)
-T_res= 186
+T_res= 232
 # Pressures 
-P_list=[100,200,300,400,500,900,1250,1500,1750,2000,2250,2500]
+P_list=[100,200,300,400,500,900,1250,1500,1750,2000,2250,2500,3000,3500,4000,4500,5000]
 #P_list=[400,3000]
 #--------------------------
 #Specify the Fluid Type (oil or gas)
@@ -69,8 +71,8 @@ fluid=fluid_type.upper()
 num_stages=1
 #SepStage 1
 # Psep1 (psia), Tsep (Degree F)
-Psep1=110
-Tsep1=89
+Psep1=14.7
+Tsep1=60
 #SepStage 2
 #Psep2 (psia), Tsep (Degree F)
 Psep2=14.7
@@ -79,10 +81,10 @@ Tsep2=60
 # The Initial guess value for Vapour Fraction
 # In case of convergence PROBLEMS ty modifying this value
 # guessV is between 0.0 and 1.0
-guessV=0.9
+guessV=0.5
 
 
-# In[24]:
+# In[ ]:
 
 
 # By Mansoor Hussain
@@ -201,7 +203,31 @@ BIC={'N2' :{'N2':0.00, 'CO2':0.00, 'H2S':0.00, 'C1':0.025,
         
 
 
-# In[25]:
+# In[3]:
+
+
+#---------------
+# Tuning
+# Specify highest Fraction
+#---------------
+Pc['C10']=Pc['C10']*1.0
+Tc['C10']=Tc['C10']*1.0
+
+
+# In[4]:
+
+
+def check_sum_func(z1):
+#Check if the sum=1.0
+ if abs(sum(z1.values())-1.0)>0.001:
+   print ('sum of mole fractions=',sum(z1.values()))
+   print ('Check your Sample Composition')
+ else:
+    print ('sum of mole fraction=',sum(z1.values()))
+check_sum_func(z1)
+
+
+# In[5]:
 
 
 #----This function is NOT used------
@@ -215,7 +241,7 @@ def criticals_fluid_func(z):
  return Tc_fluid, Pc_fluid
 
 
-# In[26]:
+# In[6]:
 
 
 def wilson(P,T_R,comp_list):
@@ -229,10 +255,9 @@ def wilson(P,T_R,comp_list):
   kval[key]=kval2                
   #kount=kount+1
  return kval
- 
 
 
-# In[27]:
+# In[7]:
 
 
 
@@ -255,7 +280,7 @@ def flash(comp_list,kval,V):
  return F_0,F_1, fv, dfv
 
 
-# In[28]:
+# In[8]:
 
 
 def V_calc(kval,comp_list,V):
@@ -334,7 +359,7 @@ def liq_vap_molfrac(kval,comp_list,V):
   
 
 
-# In[29]:
+# In[9]:
 
 
 # Following PVTi Manual
@@ -400,7 +425,7 @@ def a_calc2(P,T_R,comp_list):
    
 
 
-# In[30]:
+# In[10]:
 
 
 
@@ -434,7 +459,7 @@ def b_calc(P,T_R,comp_list):
  return B,Bj
 
 
-# In[31]:
+# In[11]:
 
 
 def eos_zeta(A,B):
@@ -511,7 +536,7 @@ def vap_zeta(P,T_R,ylist):
  return zeta
 
 
-# In[32]:
+# In[12]:
 
 
 #Eq 7.93 PVTi manual
@@ -554,7 +579,7 @@ def fugacity(P, T_R, zeta,comp_list):
  return fug
 
 
-# In[33]:
+# In[13]:
 
 
 def cubroot(p,q,r):
@@ -589,7 +614,7 @@ def cubroot(p,q,r):
   
 
 
-# In[34]:
+# In[14]:
 
 
 # To be called with P, T_F and mole fraction of the feed stream
@@ -743,7 +768,7 @@ def workflow(P,T_F,comp_list):
      
 
 
-# In[35]:
+# In[15]:
 
 
 
@@ -1030,14 +1055,14 @@ def blackoil(comp_list,T_F,P):
  return (Bg,Bo,Bo_us,Rs,Rv, L1_list,zeta_l1_list,liq_vol1_list,liq_vol_tbd_list)
 
 
-# In[46]:
+# In[16]:
 
 
 
 Bg,Bo,Bo_us,Rs,Rv,L1_list,zeta_l1_list,liq_vol1_list,liq_vol_tbd_list=blackoil(z1,T_res,P_list)
 
 
-# In[37]:
+# In[17]:
 
 
 def MW_func(z):
@@ -1218,7 +1243,7 @@ def lbc_visc(P, T_F,z):
   return (visc_liq,visc_vap,visc_liq_us)
 
 
-# In[47]:
+# In[18]:
 
 
 
@@ -1237,7 +1262,7 @@ for P in P_list:
  
 
 
-# In[40]:
+# In[19]:
 
 
 #For undersaturated Lines
@@ -1247,7 +1272,7 @@ for i in range (0,len(Bo_us)):
 print (P_max)
 
 
-# In[41]:
+# In[20]:
 
 
 #PVTO Undersaturated Lines
@@ -1259,7 +1284,7 @@ PVTO_s=pd.DataFrame(list(zip(Rs,P_list, Bo,visc_liq_list)),
                columns =['Rs(Mscf/STB)', 'Pressure(psia)','Bo(BBL/STB)', 'visc_liq(cp)'])
 
 
-# In[42]:
+# In[21]:
 
 
 def PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list):
@@ -1272,7 +1297,7 @@ def PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list):
    slash.append('/')
   PVTG['slash']=slash
   PVTG=PVTG.drop(columns=['L1_list'])
-  PVTG.to_csv('PVTG.INC')
+  PVTG.to_excel('PVTG.xls')
   print (PVTG)
   return PVTG
 
@@ -1313,7 +1338,7 @@ def PVTO_cond_func(Rs,P_list,Bo,visc_liq_list,L1_list):
   return PVTO_s,PVTO
 
 
-# In[43]:
+# In[22]:
 
 
 def PVDG_func(P_list,Bg,visc_vap_list,L1_list):
@@ -1355,7 +1380,7 @@ def PVTO_Oil_func(Rs,P_list,Bo,visc_liq_list,L1_list):
   return PVTO
 
 
-# In[48]:
+# In[23]:
 
 
 def PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list):
@@ -1363,10 +1388,10 @@ def PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list):
   PVTO=PVTO_Oil_func(Rs,P_list,Bo,visc_liq_list,L1_list)
   PVDG=PVDG_func(P_list,Bg,visc_vap_list,L1_list)
  return(PVTO,PVDG)
-PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list)
+#PVTO_PVDG_func(P_list,Bg,visc_vap_list,L1_list,Rs, Bo, visc_liq_list)
 
 
-# In[21]:
+# In[24]:
 
 
 def PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list):
@@ -1374,10 +1399,10 @@ def PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list):
   PVTO_s,PVTO=PVTO_cond_func(Rs,P_list,Bo,visc_liq_list,L1_list)
   PVTG=PVTG_func(P_list,Rv,Bg,visc_vap_list,L1_list)
  return(PVTO_s,PVTO,PVTG)
-PVTO_s,PVTO,PVTG= PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list)
+#PVTO_s,PVTO,PVTG= PVTO_PVTG_func(P_list,Bg,visc_vap_list,Rv,L1_list,Rs,Bo,visc_liq_list)
 
 
-# In[35]:
+# In[25]:
 
 
 if fluid=='GAS':
@@ -1415,7 +1440,7 @@ if fluid=='GAS':
  
 
 
-# In[49]:
+# In[26]:
 
 
 if fluid=='OIL':
@@ -1532,4 +1557,41 @@ while abs (1-output_moles)>0.01 and iter<=20:
     
 
   
+
+
+# In[ ]:
+
+
+#P_Diff=[5000,4500,4000,3500,3000,2500,2000,1500,1000,500,100,50,14.7]
+P_Diff=[3000,2000,1000,15]
+list_liq_v1=[]
+list_L1=[]
+
+def DL_func(P_Diff,T_res,z1):
+ # Calculate residual at 14.7psia and 60 Deg.F
+ for P in P_Diff:
+  x1,y1,L1,V1,zeta_l1,zeta_v1,liq_v1,vap_v1=workflow(P,T_res, z1)
+  list_liq_v1.append(liq_v1)
+  list_L1.append(L1)
+  z1=x1
+ return (P_Diff,list_liq_v1,list_L1)
+
+(P_Diff,list_liq_v1,list_L1)=DL_func(P_Diff, T_res, z1)
+
+DiffLib= pd.DataFrame(list(zip(P_Diff,list_liq_v1,list_L1)), 
+               columns =[ 'Pressure (psia)','liq_v1','Liquid Mole Fraction'])
+DiffLib
+
+
+# In[ ]:
+
+
+x2000,y2000,L2000,V2000,zeta_l2000,zeta_v2000,liq_v2000,vap_v2000=workflow(2000,232,z1)
+print('x2000=',x2000,'L2000=',L2000,'liq_v2000=',liq_v2000,'L2000=',L2000)
+
+x1000,y1000,L1000,V1000,zeta_l1000,zeta_v1000,liq_v1000,vap_v1000=workflow(1000,232,x2000)
+print('x1000=',x1000,'L1000=',L1000,'liq_v1000=',liq_v1000,'L1000=',L1000)
+
+x15,y15,L15,V15,zeta_l15,zeta_v15,liq_v15,vap_v15=workflow(14.7,232,x1000)
+print('x15=',x15,'L15=',L15,'liq_v15=',liq_v15,'L15=',L15)
 
